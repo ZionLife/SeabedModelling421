@@ -21,7 +21,12 @@ import static com.zionstudio.seabedmodlling_421.ShaderUtil.loadShader;
  */
 
 public class Cube {
-    private float r = 100f;
+    private float r = 10f; //立方体边长的一半
+
+    private float x = 0;
+    private float z = 0;
+    private float y = 80;
+
     private FloatBuffer vertexBuffer, colorBuffer;
     private ShortBuffer indexBuffer;
     private final String vertexShaderCode;
@@ -29,16 +34,28 @@ public class Cube {
     private int mProgram;
 
     final int COORDS_PER_VERTEX = 3;
+//    final float cubePositions[] = {
+//            -r, r, r,    //正面左上0
+//            -r, -r, r,   //正面左下1
+//            r, -r, r,    //正面右下2
+//            r, r, r,     //正面右上3
+//            -r, r, -r,    //反面左上4
+//            -r, -r, -r,   //反面左下5
+//            r, -r, -r,    //反面右下6
+//            r, r, -r,     //反面右上7
+//    };
+
     final float cubePositions[] = {
-            -r, r, r,    //正面左上0
-            -r, -r, r,   //正面左下1
-            r, -r, r,    //正面右下2
-            r, r, r,     //正面右上3
-            -r, r, -r,    //反面左上4
-            -r, -r, -r,   //反面左下5
-            r, -r, -r,    //反面右下6
-            r, r, -r,     //反面右上7
+            x - r, y + r, z + r,    //正面左上0
+            x - r, y - r, z + r,   //正面左下1
+            x + r, y - r, z + r,    //正面右下2
+            x + r, y + r, z + r,     //正面右上3
+            x - r, y + r, z - r,    //反面左上4
+            x - r, y - r, z - r,   //反面左下5
+            x + r, y - r, z - r,    //反面右下6
+            x + r, y + r, z - r,     //反面右上7
     };
+
     final short index[] = {
             6, 7, 4, 6, 4, 5,    //后面
             6, 3, 7, 6, 2, 3,    //右面

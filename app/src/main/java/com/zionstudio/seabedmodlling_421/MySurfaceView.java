@@ -24,12 +24,16 @@ public class MySurfaceView extends GLSurfaceView {
 //    static float cx=0;//摄像机x坐标
 //    static float cz=20;//摄像机z坐标
 
-    static float cx = 0;
+//    static float cx = 0;
+//    static float cy = 70;
+//    static float cz = 20;
+
+    static float cx = 100;
     static float cy = 70;
-    static float cz = 20;
+    static float cz = -220;
 
     static float fixedCx = 100;
-    static float fixedCy = 70;
+    static float fixedCy = 100;
     static float fixedCz = -220;
 
     static float tx = 0;//观察目标点x坐标
@@ -95,12 +99,12 @@ public class MySurfaceView extends GLSurfaceView {
                 break;
         }
 
-        //设置新的观察目标点XZ坐标
-        tx = (float) (cx - Math.sin(direction) * Offset);//观察目标点x坐标
-        tz = (float) (cz - Math.cos(direction) * Offset);//观察目标点z坐标
+//        //设置新的观察目标点XZ坐标
+//        tx = (float) (cx - Math.sin(direction) * Offset);//观察目标点x坐标
+//        tz = (float) (cz - Math.cos(direction) * Offset);//观察目标点z坐标
 
         //设置新的摄像机位置
-        MatrixState.setCamera(cx, 5, cz, tx, 1, tz, 0, 1, 0);
+        MatrixState.setCamera(cx, cy, cz, tx, 1, tz, 0, 1, 0);
         return true;
     }
 
