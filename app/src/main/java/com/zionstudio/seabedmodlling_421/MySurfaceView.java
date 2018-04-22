@@ -24,9 +24,13 @@ public class MySurfaceView extends GLSurfaceView {
 //    static float cx=0;//摄像机x坐标
 //    static float cz=20;//摄像机z坐标
 
-    static float cx = 100;
+    static float cx = 0;
     static float cy = 70;
-    static float cz = -220;
+    static float cz = 20;
+
+    static float fixedCx = 100;
+    static float fixedCy = 70;
+    static float fixedCz = -220;
 
     static float tx = 0;//观察目标点x坐标
     static float tz = 0;//观察目标点z坐标
@@ -40,7 +44,7 @@ public class MySurfaceView extends GLSurfaceView {
     float preX;
     float preY;
 
-    boolean allowRotate = false;
+    boolean allowRotate = true;  //是否允许旋转视角
 
     public MySurfaceView(Context context) {
         super(context);
@@ -126,7 +130,7 @@ public class MySurfaceView extends GLSurfaceView {
             //调用此方法计算产生透视投影矩阵
             MatrixState.setProjectFrustum(-ratio, ratio, -1, 1, 1, 1000);
             //调用此方法产生摄像机9参数位置矩阵
-            MatrixState.setCamera(cx, cy, cz, tx, 1, tz, 0, 1, 0);
+            setCameraToInit();
         }
 
         @Override
@@ -145,6 +149,10 @@ public class MySurfaceView extends GLSurfaceView {
 
             mObstacle = new Obstacle(1f);
         }
+    }
+
+    private void setCameraToInit() {
+        MatrixState.setCamera(fixedCx, fixedCy, fixedCz, tx, 1, tz, 0, 1, 0);
     }
 
     //生成纹理Id的方法
