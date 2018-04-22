@@ -129,6 +129,7 @@ public class Obstacle {
         indexbuffer = Utils.getShortBuffer(indices);
     }
 
+    //绘制立方体障碍物
     public void draw(GL10 gl) {
         Log.i("obstacle", "obstacle draw");
         // 启用顶点座标数据

@@ -6,11 +6,12 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
 import android.opengl.GLES30;
+import android.opengl.GLSurfaceView;
 import android.util.Log;
 
 import javax.microedition.khronos.opengles.GL10;
 
-public class Mountion {
+public class Mountain {
     //单位长度
     float UNIT_SIZE = 3.0f;
 
@@ -143,23 +144,23 @@ public class Mountion {
 
     ShortBuffer indexbuffer;
 
-    public Mountion(MySurfaceView mv, float[][] yArray, int rows, int cols) {
-//        initObstacle();
+    public Mountain(GLSurfaceView mv, float[][] yArray, int rows, int cols) {
+        initObstacle();
         initVertexData(yArray, rows, cols);
         initShader(mv);
     }
 
     private void initObstacle() {
-//        mObstacle = new Obstacle(1f);
-        //获取浮点形缓冲数据
-        VerticesBuffer = Utils.getFloatBuffer(cubeVertices);
-        //获取浮点型颜色数据
-        Colorbuffer = Utils.getFloatBuffer(cubeColors);
-        //获取浮点型索引数据
-        indexbuffer = Utils.getShortBuffer(indices);
+        mObstacle = new Obstacle(1f);
+//        //获取浮点形缓冲数据
+//        VerticesBuffer = Utils.getFloatBuffer(cubeVertices);
+//        //获取浮点型颜色数据
+//        Colorbuffer = Utils.getFloatBuffer(cubeColors);
+//        //获取浮点型索引数据
+//        indexbuffer = Utils.getShortBuffer(indices);
     }
 
-    //初始化顶点数据
+    //初始化地形顶点数据
     public void initVertexData(float[][] yArray, int rows, int cols) {
         //顶点坐标数据的初始化
         vCount = cols * rows * 2 * 3;//每个格子两个三角形，每个三角形3个顶点
@@ -215,7 +216,7 @@ public class Mountion {
     }
 
     //初始化着色器的方法
-    public void initShader(MySurfaceView mv) {
+    public void initShader(GLSurfaceView mv) {
 //        String mVertexShader=ShaderUtil.loadFromAssetsFile("vertex.sh", mv.getResources());
 //        String mFragmentShader=ShaderUtil.loadFromAssetsFile("frag.sh", mv.getResources());
 
@@ -242,38 +243,8 @@ public class Mountion {
         landYSpanHandle = GLES30.glGetUniformLocation(mProgram, "landYSpan");
     }
 
-    public void drawSelf(int texId, int rock_textId, GL10 gl) {
-//        Log.i("obstacle", "obstacle draw");
-//        // 启用顶点座标数据
-//        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-//        // 启用顶点颜色数据
-//        gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-//
-//        // 重置当前的模型视图矩阵
-//        gl.glLoadIdentity();
-//        // 沿着Y轴旋转
-//        gl.glRotatef(rotate, 0f, 1f, 0f);
-//
-//        // 设置顶点的位置数据
-//        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, VerticesBuffer);
-//
-//        // 设置顶点的颜色数据
-//        gl.glColorPointer(4, GL10.GL_FLOAT, 0, Colorbuffer);
-//
-//        //绘制三角形
-//        // gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP  , 0, 24);
-//        gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_SHORT, indexbuffer);
-//
-//        gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-//        gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
-//
-//        // 旋转角度增加1
-//        rotate -= 1;
-//        if (!needDrawLand) {
-//            return;
-//        }
-
-        Log.i("Mountain", "draw mountain");
+    public void draw(int texId, int rock_textId, GL10 gl) {
+//        mObstacle.draw(gl); //绘制立方体障碍物
         //指定使用某套着色器程序
         GLES30.glUseProgram(mProgram);
         //将最终变换矩阵传入渲染管线

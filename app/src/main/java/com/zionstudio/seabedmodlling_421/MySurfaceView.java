@@ -40,16 +40,18 @@ public class MySurfaceView extends GLSurfaceView {
     float x;
     float y;
     float Offset = 20;
-    SceneRenderer mRender;
+    Renderer mRender;
     float preX;
     float preY;
 
-    boolean allowRotate = true;  //是否允许旋转视角
+    boolean allowRotate = false;  //是否允许旋转视角
 
     public MySurfaceView(Context context) {
         super(context);
         this.setEGLContextClientVersion(3); //设置使用OPENGL ES3.0
-        mRender = new SceneRenderer();    //创建场景渲染器
+//        mRender = new SceneRenderer();    //创建场景渲染器
+
+        mRender = new MyTestRenderer(this);
         setRenderer(mRender);                //设置渲染器
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);//设置渲染模式为主动渲染
     }
@@ -103,11 +105,11 @@ public class MySurfaceView extends GLSurfaceView {
     }
 
     private class SceneRenderer implements GLSurfaceView.Renderer {
-        Mountion mountion;
+        Mountain mMountain;
         Obstacle mObstacle;
 
         //山的纹理id
-        int mountionId;
+        int mountainId;
         int rockId;
 
         @Override
@@ -116,8 +118,8 @@ public class MySurfaceView extends GLSurfaceView {
             GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT | GLES30.GL_COLOR_BUFFER_BIT);
 
             MatrixState.pushMatrix();
-            mountion.drawSelf(mountionId, rockId, gl);
-//            mObstacle.draw(gl);
+//            mMountain.draw(mountainId, rockId, gl);
+            mObstacle.draw(gl);
             MatrixState.popMatrix();
         }
 
@@ -142,9 +144,9 @@ public class MySurfaceView extends GLSurfaceView {
             MatrixState.setInitStack();
             yArray = loadLandforms(MySurfaceView.this.getResources(), R.mipmap.land);
 
-            mountion = new Mountion(MySurfaceView.this, yArray, yArray.length - 1, yArray[0].length - 1);
+            mMountain = new Mountain(MySurfaceView.this, yArray, yArray.length - 1, yArray[0].length - 1);
             //初始化纹理
-            mountionId = initTexture(R.mipmap.grass);
+            mountainId = initTexture(R.mipmap.grass);
             rockId = initTexture(R.mipmap.rock_01);
 
             mObstacle = new Obstacle(1f);
