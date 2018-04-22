@@ -21,38 +21,23 @@ import static com.zionstudio.seabedmodlling_421.ShaderUtil.loadShader;
  */
 
 public class Cube {
+    private float r = 100f;
     private FloatBuffer vertexBuffer, colorBuffer;
     private ShortBuffer indexBuffer;
-//    private final String vertexShaderCode =
-//            "attribute vec4 vPosition;" +
-//                    "uniform mat4 vMatrix;" +
-//                    "varying  vec4 vColor;" +
-//                    "attribute vec4 aColor;" +
-//                    "void main() {" +
-//                    "  gl_Position = vMatrix*vPosition;" +
-//                    "  vColor=aColor;" +
-//                    "}";
-//
-//    private final String fragmentShaderCode =
-//            "precision mediump float;" +
-//                    "varying vec4 vColor;" +
-//                    "void main() {" +
-//                    "  gl_FragColor = vColor;" +
-//                    "}";
     private final String vertexShaderCode;
     private final String fragmentShaderCode;
     private int mProgram;
 
     final int COORDS_PER_VERTEX = 3;
     final float cubePositions[] = {
-            -1.0f, 1.0f, 1.0f,    //正面左上0
-            -1.0f, -1.0f, 1.0f,   //正面左下1
-            1.0f, -1.0f, 1.0f,    //正面右下2
-            1.0f, 1.0f, 1.0f,     //正面右上3
-            -1.0f, 1.0f, -1.0f,    //反面左上4
-            -1.0f, -1.0f, -1.0f,   //反面左下5
-            1.0f, -1.0f, -1.0f,    //反面右下6
-            1.0f, 1.0f, -1.0f,     //反面右上7
+            -r, r, r,    //正面左上0
+            -r, -r, r,   //正面左下1
+            r, -r, r,    //正面右下2
+            r, r, r,     //正面右上3
+            -r, r, -r,    //反面左上4
+            -r, -r, -r,   //反面左下5
+            r, -r, -r,    //反面右下6
+            r, r, -r,     //反面右上7
     };
     final short index[] = {
             6, 7, 4, 6, 4, 5,    //后面
@@ -127,7 +112,7 @@ public class Cube {
         //获取变换矩阵vMatrix成员句柄
         mMatrixHandler = GLES30.glGetUniformLocation(mProgram, "vMatrix");
         //指定vMatrix的值
-        GLES30.glUniformMatrix4fv(mMatrixHandler, 1, false, mMVPMatrix, 0);
+        GLES30.glUniformMatrix4fv(mMatrixHandler, 1, false, MatrixState.getFinalMatrix(), 0);
         //获取顶点着色器的vPosition成员句柄
         mPositionHandle = GLES30.glGetAttribLocation(mProgram, "vPosition");
         //启用三角形顶点的句柄

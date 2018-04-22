@@ -71,15 +71,16 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
         MatrixState.setProjectFrustum(-ratio, ratio, -1, 1, 1, 1000);
         //调用此方法产生摄像机9参数位置矩阵
         MatrixState.setCamera(fixedCx, fixedCy, fixedCz, tx, 1, tz, 0, 1, 0);
-
+//        MatrixState.setCamera(5.0f, 5.0f, 10.0f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 //        //计算宽高比
 //        float ratio = (float) width / height;
         //设置透视投影
-        Matrix.frustumM(mProjectMatrix, 0, -ratio, ratio, -1, 1, 3, 20);
-        //设置相机位置
-        Matrix.setLookAtM(mViewMatrix, 0, 5.0f, 5.0f, 10.0f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
-        //计算变换矩阵
-        Matrix.multiplyMM(mMVPMatrix, 0, mProjectMatrix, 0, mViewMatrix, 0);
+//        Matrix.frustumM(mProjectMatrix, 0, -ratio, ratio, -1, 1, 3, 1000);
+//        //设置相机位置
+////        Matrix.setLookAtM(mViewMatrix, 0, 5.0f, 5.0f, 10.0f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+////        Matrix.setLookAtM(mViewMatrix, 0, fixedCx, fixedCy, fixedCz, tx, 1, tz, 0, 1, 0f);
+//        //计算变换矩阵
+//        Matrix.multiplyMM(mMVPMatrix, 0, mProjectMatrix, 0, mViewMatrix, 0);
     }
 
     @Override

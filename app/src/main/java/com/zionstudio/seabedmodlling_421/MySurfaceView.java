@@ -44,7 +44,7 @@ public class MySurfaceView extends GLSurfaceView {
     float preX;
     float preY;
 
-    boolean allowRotate = false;  //是否允许旋转视角
+    boolean allowRotate = true;  //是否允许旋转视角
 
     public MySurfaceView(Context context) {
         super(context);
