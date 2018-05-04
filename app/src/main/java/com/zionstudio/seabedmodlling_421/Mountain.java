@@ -1,13 +1,11 @@
 package com.zionstudio.seabedmodlling_421;
 
+import android.opengl.GLES30;
+import android.opengl.GLSurfaceView;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
-
-import android.opengl.GLES30;
-import android.opengl.GLSurfaceView;
-import android.util.Log;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -43,106 +41,6 @@ public class Mountain {
     boolean needDrawLand = false;
 
     float r = 1f;
-    // 定义立方体的8个顶点
-    float[] cubeVertices = {
-            //左面
-            -r, r, r,
-            -r, -r, r,
-            -r, r, -r,
-            -r, -r, -r,
-
-            //右面
-            r, r, r,
-            r, -r, r,
-            r, -r, -r,
-            r, r, -r,
-
-            //前面
-            -r, r, r,
-            -r, -r, r,
-            r, -r, r,
-            r, r, r,
-
-            //后面
-            r, -r, -r,
-            r, r, -r,
-            -r, r, -r,
-            -r, -r, -r,
-
-            //上面
-            -r, r, r,
-            r, r, r,
-            r, r, -r,
-            -r, r, -r,
-
-            //下面
-            -r, -r, r,
-            r, -r, r,
-            r, -r, -r,
-            -r, -r, -r
-    };
-    //  颜色数组
-    float[] cubeColors = {
-            1f, 0f, 0f, 1f,
-            0f, 1f, 0f, 1f,
-            0f, 0f, 1f, 1f,
-            1f, 0f, 0f, 1f,
-
-            1f, 0f, 0f, 1f,
-            0f, 1f, 0f, 1f,
-            0f, 0f, 1f, 1f,
-            1f, 0f, 0f, 1f,
-
-            1f, 0f, 0f, 1f,
-            0f, 1f, 0f, 1f,
-            0f, 0f, 1f, 1f,
-            1f, 0f, 0f, 1f,
-
-            1f, 0f, 0f, 1f,
-            0f, 1f, 0f, 1f,
-            0f, 0f, 1f, 1f,
-            1f, 0f, 0f, 1f,
-
-
-            1f, 0f, 0f, 1f,
-            0f, 1f, 0f, 1f,
-            0f, 0f, 1f, 1f,
-            1f, 0f, 0f, 1f,
-
-            1f, 0f, 0f, 1f,
-            0f, 1f, 0f, 1f,
-            0f, 0f, 1f, 1f,
-            1f, 0f, 0f, 1f,
-    };
-    //索引数组
-    private short[] indices = {
-            0, 1, 2,
-            0, 2, 3,
-
-            4, 5, 6,
-            4, 6, 7,
-
-            8, 9, 10,
-            8, 10, 11,
-
-            12, 13, 14,
-            12, 14, 15,
-
-            16, 17, 18,
-            16, 18, 19,
-
-            20, 21, 22,
-            20, 22, 23,
-    };
-
-
-    // 控制旋转的角度
-    private float rotate;
-
-    FloatBuffer VerticesBuffer;
-    FloatBuffer Colorbuffer;
-
-    ShortBuffer indexbuffer;
 
     public Mountain(GLSurfaceView mv, float[][] yArray, int rows, int cols) {
         initObstacle();
@@ -152,12 +50,6 @@ public class Mountain {
 
     private void initObstacle() {
         mObstacle = new Obstacle(1f);
-//        //获取浮点形缓冲数据
-//        VerticesBuffer = Utils.getFloatBuffer(cubeVertices);
-//        //获取浮点型颜色数据
-//        Colorbuffer = Utils.getFloatBuffer(cubeColors);
-//        //获取浮点型索引数据
-//        indexbuffer = Utils.getShortBuffer(indices);
     }
 
     //初始化地形顶点数据

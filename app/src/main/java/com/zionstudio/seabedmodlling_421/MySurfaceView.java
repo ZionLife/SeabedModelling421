@@ -1,18 +1,20 @@
 package com.zionstudio.seabedmodlling_421;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 import static com.zionstudio.seabedmodlling_421.Constant.loadLandforms;
 import static com.zionstudio.seabedmodlling_421.Constant.yArray;
@@ -20,6 +22,7 @@ import static com.zionstudio.seabedmodlling_421.MainActivity.HEIGHT;
 import static com.zionstudio.seabedmodlling_421.MainActivity.WIDTH;
 
 public class MySurfaceView extends GLSurfaceView {
+    private final String TAG = getClass().getSimpleName();
     static float direction = 0;//视线方向
 //    static float cx=0;//摄像机x坐标
 //    static float cz=20;//摄像机z坐标
@@ -51,13 +54,22 @@ public class MySurfaceView extends GLSurfaceView {
     boolean allowRotate = true;  //是否允许旋转视角
 
     public MySurfaceView(Context context) {
-        super(context);
+        this(context, null);
+    }
+
+    public MySurfaceView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         this.setEGLContextClientVersion(3); //设置使用OPENGL ES3.0
 //        mRender = new SceneRenderer();    //创建场景渲染器
 
         mRender = new MyTestRenderer(this);
         setRenderer(mRender);                //设置渲染器
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);//设置渲染模式为主动渲染
+    }
+
+    public void clear() {
+        Log.i(TAG, "收到消息");
+        ((MyTestRenderer) mRender).clear();
     }
 
     @Override
@@ -108,7 +120,7 @@ public class MySurfaceView extends GLSurfaceView {
         return true;
     }
 
-    private class SceneRenderer implements GLSurfaceView.Renderer {
+    private class SceneRenderer implements Renderer {
         Mountain mMountain;
         Obstacle mObstacle;
 

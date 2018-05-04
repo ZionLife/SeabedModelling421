@@ -1,10 +1,10 @@
 package com.zionstudio.seabedmodlling_421;
 
+import android.opengl.Matrix;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-
-import android.opengl.Matrix;
 
 //存储系统矩阵状态的类
 public class MatrixState {

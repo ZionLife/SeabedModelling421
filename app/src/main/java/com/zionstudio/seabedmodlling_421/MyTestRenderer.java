@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
-import android.opengl.Matrix;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +22,7 @@ import static com.zionstudio.seabedmodlling_421.Constant.yArray;
  */
 
 public class MyTestRenderer implements GLSurfaceView.Renderer {
+    private final String TAG = getClass().getSimpleName();
     static float fixedCx = 100;
     static float fixedCy = 70;
     static float fixedCz = -220;
@@ -71,20 +72,11 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
         MatrixState.setProjectFrustum(-ratio, ratio, -1, 1, 1, 1000);
         //调用此方法产生摄像机9参数位置矩阵
         MatrixState.setCamera(fixedCx, fixedCy, fixedCz, tx, 1, tz, 0, 1, 0);
-//        MatrixState.setCamera(5.0f, 5.0f, 10.0f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
-//        //计算宽高比
-//        float ratio = (float) width / height;
-        //设置透视投影
-//        Matrix.frustumM(mProjectMatrix, 0, -ratio, ratio, -1, 1, 3, 1000);
-//        //设置相机位置
-////        Matrix.setLookAtM(mViewMatrix, 0, 5.0f, 5.0f, 10.0f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
-////        Matrix.setLookAtM(mViewMatrix, 0, fixedCx, fixedCy, fixedCz, tx, 1, tz, 0, 1, 0f);
-//        //计算变换矩阵
-//        Matrix.multiplyMM(mMVPMatrix, 0, mProjectMatrix, 0, mViewMatrix, 0);
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
+        Log.i("Zion", "onDrawFrame");
         GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT | GLES30.GL_COLOR_BUFFER_BIT);
 
         MatrixState.pushMatrix();
@@ -92,6 +84,14 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
         mMountain.draw(mountainId, rockId, gl);
         MatrixState.popMatrix();
 
+    }
+
+    /**
+     * 点击确定按钮后调用此方法
+     */
+    public void clear() {
+        Log.i(TAG, "执行清屏");
+        GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT | GLES30.GL_COLOR_BUFFER_BIT);
     }
 
     //生成纹理Id的方法
