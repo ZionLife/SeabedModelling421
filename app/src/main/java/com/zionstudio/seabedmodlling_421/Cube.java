@@ -1,6 +1,7 @@
 package com.zionstudio.seabedmodlling_421;
 
 import android.opengl.GLES30;
+import android.util.Log;
 import android.view.View;
 
 import java.nio.ByteBuffer;
@@ -16,16 +17,17 @@ import static com.zionstudio.seabedmodlling_421.ShaderUtil.loadShader;
  */
 
 public class Cube {
+    private String TAG = getClass().getSimpleName();
     private float r = 10f; //立方体边长的一半
 
-    public static float x = 200;
-    public static float z = 200;
+    public static float x = 0;
+    public static float z = 0;
     public static final float y = 50;
 
     private FloatBuffer vertexBuffer, colorBuffer;
     private ShortBuffer indexBuffer;
-    private final String vertexShaderCode;
-    private final String fragmentShaderCode;
+    private String vertexShaderCode;
+    private String fragmentShaderCode;
     private int mProgram;
 
     final int COORDS_PER_VERTEX = 3;
@@ -83,8 +85,31 @@ public class Cube {
 
 
     public Cube(View mView) {
+//        setBuffer();
         vertexShaderCode = ShaderUtil.readTextFileFromResource(MyApplication.mContext, R.raw.vertex_cube);
         fragmentShaderCode = ShaderUtil.readTextFileFromResource(MyApplication.mContext, R.raw.frag_cube);
+
+
+        int vertexShader = loadShader(GLES30.GL_VERTEX_SHADER,
+                vertexShaderCode);
+        int fragmentShader = loadShader(GLES30.GL_FRAGMENT_SHADER,
+                fragmentShaderCode);
+        //创建一个空的OpenGLES程序
+        mProgram = GLES30.glCreateProgram();
+        //将顶点着色器加入到程序
+        GLES30.glAttachShader(mProgram, vertexShader);
+        //将片元着色器加入到程序中
+        GLES30.glAttachShader(mProgram, fragmentShader);
+        //连接到着色器程序
+        GLES30.glLinkProgram(mProgram);
+    }
+
+    public void setBuffer() {
+
+//        vertexBuffer.clear();
+//        colorBuffer.clear();
+//        indexBuffer.clear();
+        Log.i(TAG, "setBuffer：" + "x：" + x + "； z:" + z);
         ByteBuffer bb = ByteBuffer.allocateDirect(
                 cubePositions.length * 4);
         bb.order(ByteOrder.nativeOrder());
@@ -104,18 +129,6 @@ public class Cube {
         indexBuffer = cc.asShortBuffer();
         indexBuffer.put(index);
         indexBuffer.position(0);
-        int vertexShader = loadShader(GLES30.GL_VERTEX_SHADER,
-                vertexShaderCode);
-        int fragmentShader = loadShader(GLES30.GL_FRAGMENT_SHADER,
-                fragmentShaderCode);
-        //创建一个空的OpenGLES程序
-        mProgram = GLES30.glCreateProgram();
-        //将顶点着色器加入到程序
-        GLES30.glAttachShader(mProgram, vertexShader);
-        //将片元着色器加入到程序中
-        GLES30.glAttachShader(mProgram, fragmentShader);
-        //连接到着色器程序
-        GLES30.glLinkProgram(mProgram);
     }
 
     public void drawCube(float[] mMVPMatrix) {

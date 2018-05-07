@@ -107,7 +107,6 @@ public class MainActivity extends Activity {
     }
 
     private void confirm() {
-        sfv.clear();
         String obsXStr = etObstacleX.getText().toString();
         String obsYStr = etObstacleY.getText().toString();
         String startXStr = etStartX.getText().toString();
@@ -126,14 +125,15 @@ public class MainActivity extends Activity {
         startY = Float.parseFloat(startYStr);
         endX = Float.parseFloat(endXStr);
         endY = Float.parseFloat(endYStr);
-        checkOutOfBounds();
+//        checkOutOfBounds();
         setCubeCoordinate();
         rl.setVisibility(View.GONE);
     }
 
     private void setCubeCoordinate() {
         Cube.x = obsX;
-        Cube.x = obsY;
+        Cube.z = obsY;
+        sfv.clear();
     }
 
     private void checkOutOfBounds() {

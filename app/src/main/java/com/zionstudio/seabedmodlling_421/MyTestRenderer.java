@@ -41,6 +41,7 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
     //山的纹理id
     int mountainId;
     int rockId;
+    private boolean mDrawCube = false;
 
     public MyTestRenderer(GLSurfaceView view) {
         mView = view;
@@ -78,10 +79,11 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         Log.i("Zion", "onDrawFrame");
         GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT | GLES30.GL_COLOR_BUFFER_BIT);
-
         MatrixState.pushMatrix();
-        mCube.drawCube(mMVPMatrix);
         mMountain.draw(mountainId, rockId, gl);
+        if (mDrawCube == true) {
+            mCube.drawCube(mMVPMatrix);
+        }
         MatrixState.popMatrix();
 
     }
@@ -90,8 +92,11 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
      * 点击确定按钮后调用此方法
      */
     public void clear() {
-        Log.i(TAG, "执行清屏");
-        GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT | GLES30.GL_COLOR_BUFFER_BIT);
+        Log.i(TAG, "执行重绘");
+        mDrawCube = true;
+//        mCube = new Cube(mView);
+        mCube.setBuffer();
+//        mCube.setBuffer();
     }
 
     //生成纹理Id的方法
