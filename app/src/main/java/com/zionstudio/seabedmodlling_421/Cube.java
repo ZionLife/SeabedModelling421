@@ -109,7 +109,7 @@ public class Cube {
 //        vertexBuffer.clear();
 //        colorBuffer.clear();
 //        indexBuffer.clear();
-        Log.i(TAG, "setBuffer：" + "x：" + x + "； z:" + z);
+        Log.i("测试异步", "setBuffer：" + "x：" + x + "； z:" + z);
         ByteBuffer bb = ByteBuffer.allocateDirect(
                 cubePositions.length * 4);
         bb.order(ByteOrder.nativeOrder());
@@ -132,7 +132,8 @@ public class Cube {
     }
 
     public void drawCube(float[] mMVPMatrix) {
-        //将程序加入到OpenGLES2.0环境
+        Log.i("测试异步", "drawCube");
+        //将程序加入到OpenGLES3.0环境
         GLES30.glUseProgram(mProgram);
         //获取变换矩阵vMatrix成员句柄
         mMatrixHandler = GLES30.glGetUniformLocation(mProgram, "vMatrix");

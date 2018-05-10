@@ -1,23 +1,11 @@
 package com.zionstudio.seabedmodlling_421;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
-import android.opengl.GLUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
-import static com.zionstudio.seabedmodlling_421.Constant.loadLandforms;
-import static com.zionstudio.seabedmodlling_421.Constant.yArray;
 import static com.zionstudio.seabedmodlling_421.MainActivity.HEIGHT;
 import static com.zionstudio.seabedmodlling_421.MainActivity.WIDTH;
 

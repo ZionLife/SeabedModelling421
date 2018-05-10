@@ -13,8 +13,8 @@ import java.io.InputStream;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import static com.zionstudio.seabedmodlling_421.Constant.loadLandforms;
-import static com.zionstudio.seabedmodlling_421.Constant.yArray;
+import static com.zionstudio.seabedmodlling_421.Constant.getLand;
+import static com.zionstudio.seabedmodlling_421.Constant.highArrs;
 
 /**
  * Created by QiuXi'an on 2018/4/22 0022.
@@ -34,7 +34,7 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
     private float[] mProjectMatrix = new float[16];
     private float[] mMVPMatrix = new float[16];
     Cube mCube;
-    Mountain mMountain;
+    Land mLand;
 
     GLSurfaceView mView;
 
@@ -54,8 +54,8 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
         mCube = new Cube(mView);
 
         MatrixState.setInitStack();
-        yArray = loadLandforms(mView.getResources(), R.mipmap.land);
-        mMountain = new Mountain(mView, yArray, yArray.length - 1, yArray[0].length - 1);
+        highArrs = getLand(mView.getResources(), R.mipmap.land12);
+        mLand = new Land(mView, highArrs, highArrs.length - 1, highArrs[0].length - 1);
 
         //初始化纹理
         mountainId = initTexture(R.mipmap.grass);
@@ -80,7 +80,7 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
         Log.i("Zion", "onDrawFrame");
         GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT | GLES30.GL_COLOR_BUFFER_BIT);
         MatrixState.pushMatrix();
-        mMountain.draw(mountainId, rockId, gl);
+        mLand.draw(mountainId, rockId, gl);
         if (mDrawCube == true) {
             mCube.drawCube(mMVPMatrix);
         }

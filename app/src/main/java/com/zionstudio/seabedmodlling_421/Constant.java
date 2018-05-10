@@ -6,16 +6,16 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
 public class Constant {
-    public static float[][] yArray;
-    public static final float LAND_HIGH_ADJUST = 2f;
-    public static final float LAND_HIGHEST = 60f;
+    public static float[][] highArrs;
+    public static final float HIGH_BASE = 2f;
+    public static final float HIGHEST = 80f;
     public static int minX = 0;
     public static int minY = 0;
     public static int maxX;
     public static int maxY; //
 
-    public static float[][] loadLandforms(Resources resources, int index) {
-        Bitmap bt = BitmapFactory.decodeResource(resources, index);
+    public static float[][] getLand(Resources res, int index) {
+        Bitmap bt = BitmapFactory.decodeResource(res, index);
         int colsPlusOne = bt.getWidth();
         int rowsPlusOne = bt.getHeight();
         maxX = colsPlusOne - 1;
@@ -29,7 +29,8 @@ public class Constant {
                 int g = Color.green(color);
                 int b = Color.blue(color);
                 int h = (r + g + b) / 3;
-                result[i][j] = h * LAND_HIGHEST / 255 + LAND_HIGH_ADJUST;
+//                result[i][j] = h * HIGHEST / 255 + HIGH_BASE;
+                result[i][j] = r * HIGHEST / 255 + HIGH_BASE;
             }
         }
         return result;

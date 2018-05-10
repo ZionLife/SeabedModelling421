@@ -9,7 +9,7 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-public class Mountain {
+public class Land {
     //单位长度
     float UNIT_SIZE = 3.0f;
 
@@ -42,7 +42,7 @@ public class Mountain {
 
     float r = 1f;
 
-    public Mountain(GLSurfaceView mv, float[][] yArray, int rows, int cols) {
+    public Land(GLSurfaceView mv, float[][] yArray, int rows, int cols) {
         initObstacle();
         initVertexData(yArray, rows, cols);
         initShader(mv);
@@ -175,7 +175,7 @@ public class Mountain {
         GLES30.glUniform1i(sTextureRockHandle, 1); //使用1号纹理
 
         GLES30.glUniform1f(landStartYYHandle, 0);
-        GLES30.glUniform1f(landYSpanHandle, 50);
+        GLES30.glUniform1f(landYSpanHandle, 90);
 
         //绘制纹理矩形
         GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, vCount);
