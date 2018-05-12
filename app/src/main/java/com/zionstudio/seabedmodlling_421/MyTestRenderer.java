@@ -7,9 +7,6 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.util.Log;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -39,7 +36,7 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
     GLSurfaceView mView;
 
     //山的纹理id
-    int mountainId;
+    int grassId;
     int rockId;
     private boolean mDrawCube = false;
 
@@ -49,21 +46,23 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        Log.i(TAG, "onSurfaceCreated");
         //开启深度测试
         GLES30.glEnable(GLES30.GL_DEPTH_TEST);
         mCube = new Cube(mView);
 
         MatrixState.setInitStack();
-        highArrs = getLand(mView.getResources(), R.mipmap.land12);
+        highArrs = getLand(mView.getResources(), R.mipmap.land8);
         mLand = new Land(mView, highArrs, highArrs.length - 1, highArrs[0].length - 1);
 
         //初始化纹理
-        mountainId = initTexture(R.mipmap.grass);
-        rockId = initTexture(R.mipmap.rock_01);
+        grassId = initTexture(Constant.sGrassPath);
+        rockId = initTexture(Constant.sRockPath);
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
+        Log.i(TAG, "onSurfaceChanged");
         //绘制地形的相关代码
         //设置视窗大小及位置
         GLES30.glViewport(0, 0, width, height);
@@ -77,10 +76,10 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        Log.i("Zion", "onDrawFrame");
+//        Log.i("Zion", "onDrawFrame");
         GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT | GLES30.GL_COLOR_BUFFER_BIT);
         MatrixState.pushMatrix();
-        mLand.draw(mountainId, rockId, gl);
+        mLand.draw(grassId, rockId, gl);
         if (mDrawCube == true) {
             mCube.drawCube(mMVPMatrix);
         }
@@ -100,7 +99,7 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
     }
 
     //生成纹理Id的方法
-    public int initTexture(int drawableId) {
+    public int initTexture(String path) {
         //生成纹理ID
         int[] textures = new int[1];
         GLES30.glGenTextures
@@ -120,18 +119,9 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
         GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_REPEAT);
 
         //通过输入流加载图片
-        InputStream is = mView.getResources().openRawResource(drawableId);
+//        InputStream is = mView.getResources().openRawResource(drawableId);
         Bitmap bitmapTmp;
-        try {
-            bitmapTmp = BitmapFactory.decodeStream(is);
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        bitmapTmp = BitmapFactory.decodeFile(path);
         //实际加载纹理
         GLUtils.texImage2D
                 (

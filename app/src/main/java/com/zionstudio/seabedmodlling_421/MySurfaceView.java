@@ -12,12 +12,6 @@ import static com.zionstudio.seabedmodlling_421.MainActivity.WIDTH;
 public class MySurfaceView extends GLSurfaceView {
     private final String TAG = getClass().getSimpleName();
     static float direction = 0;//视线方向
-//    static float cx=0;//摄像机x坐标
-//    static float cz=20;//摄像机z坐标
-
-//    static float cx = 0;
-//    static float cy = 70;
-//    static float cz = 20;
 
     static float cx = 100;
     static float cy = 70;
@@ -111,53 +105,4 @@ public class MySurfaceView extends GLSurfaceView {
     private void setCameraToInit() {
         MatrixState.setCamera(fixedCx, fixedCy, fixedCz, tx, 1, tz, 0, 1, 0);
     }
-
-//    //生成纹理Id的方法
-//    public int initTexture(int drawableId) {
-//        //生成纹理ID
-//        int[] textures = new int[1];
-//        GLES30.glGenTextures
-//                (
-//                        1,          //产生的纹理id的数量
-//                        textures,   //纹理id的数组
-//                        0           //偏移量
-//                );
-//        int textureId = textures[0];
-//        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureId);    //绑定纹理
-//        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER,
-//                GLES30.GL_LINEAR_MIPMAP_LINEAR);        //使用MipMap线性纹理采样
-//        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER,
-//                GLES30.GL_LINEAR_MIPMAP_NEAREST);        //使用MipMap最近点纹理采样
-//        //ST方向纹理拉伸方式
-//        GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_REPEAT);
-//        GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_REPEAT);
-//
-//        //通过输入流加载图片
-//        InputStream is = this.getResources().openRawResource(drawableId);
-//        Bitmap bitmapTmp;
-//        try {
-//            bitmapTmp = BitmapFactory.decodeStream(is);
-//        } finally {
-//            try {
-//                is.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        //实际加载纹理
-//        GLUtils.texImage2D
-//                (
-//                        GLES30.GL_TEXTURE_2D,   //纹理类型
-//                        0,                      //纹理的层次，0表示基本图像层，可以理解为直接贴图
-//                        bitmapTmp,              //纹理图像
-//                        0                      //纹理边框尺寸
-//                );
-//        //自动生成Mipmap纹理
-//        GLES30.glGenerateMipmap(GLES30.GL_TEXTURE_2D);
-//        //释放纹理图
-//        bitmapTmp.recycle();
-//        //返回纹理ID
-//        return textureId;
-//    }
 }

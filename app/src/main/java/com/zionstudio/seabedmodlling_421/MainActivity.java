@@ -2,7 +2,10 @@ package com.zionstudio.seabedmodlling_421;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -20,7 +23,7 @@ public class MainActivity extends Activity {
     //屏幕对应的宽度和高度
     static float WIDTH;
     static float HEIGHT;
-
+    public static String mImagePath;
     float obsX; //障碍物X坐标
     float obsY; //障碍物Y坐标，对应在Gl坐标系中是Z坐标
     float startX;
@@ -70,17 +73,26 @@ public class MainActivity extends Activity {
         }
         //设置为横屏模式
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        initData();
+        initView();
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        initView();
+
         initListener();
-        AStar2.doSearch();
+//        AStar2.doSearch();
+    }
+
+    private void initData() {
+//        final Uri uri = Uri.parse(getIntent().getStringExtra("imageUri"));
+//        parseImagePath(uri);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        sfv = null;
+//        Constant.reset();
     }
 
     private void initListener() {
@@ -128,6 +140,20 @@ public class MainActivity extends Activity {
 //        checkOutOfBounds();
         setCubeCoordinate();
         rl.setVisibility(View.GONE);
+    }
+
+    /**
+     * 解析uri得到图片的路径
+     *
+     * @param uri
+     */
+    private void parseImagePath(Uri uri) {
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        mImagePath = cursor.getString(columnIndex);
+        cursor.close();
     }
 
     private void setCubeCoordinate() {
