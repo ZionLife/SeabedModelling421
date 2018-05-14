@@ -53,6 +53,8 @@ public class MainActivity extends Activity {
     Button btnCancel;
     @BindView(R.id.rl)
     LinearLayout rl;
+    @BindView(R.id.mv)
+    MapView mv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
+        sfv.setMapView(mv);
         initListener();
 //        AStar2.doSearch();
     }

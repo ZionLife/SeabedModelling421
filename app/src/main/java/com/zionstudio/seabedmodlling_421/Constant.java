@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.util.Log;
 
 public class Constant {
+    private static final String TAG = "Constant";
     public static float[][] highArrs;
     public static float HIGH_BASE = 2f;
     public static float HIGHEST = 80f;
@@ -17,6 +18,9 @@ public class Constant {
     public static int minY = 0;
     public static int maxX;
     public static int maxY; //
+
+    public static float xSum;
+    public static float ySum;
 
     public static float[][] getLand(Resources res, int index) {
 //        Bitmap bt = BitmapFactory.decodeResource(res, index);
@@ -39,6 +43,7 @@ public class Constant {
                 result[i][j] = r * HIGHEST / 255 + HIGH_BASE;
             }
         }
+        Log.i(TAG, "land x宽度: " + result[0].length + "；y宽度:" + result.length);
         return result;
     }
 
@@ -62,6 +67,8 @@ public class Constant {
                 result[i][j] = r * HIGHEST / 255 + HIGH_BASE;
             }
         }
+
+        Log.i(TAG, "land x宽度: " + result[0].length + "；y宽度:" + result.length);
         return result;
     }
 

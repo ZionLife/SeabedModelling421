@@ -6,17 +6,19 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import java.util.Map;
+
 import static com.zionstudio.seabedmodlling_421.MainActivity.HEIGHT;
 import static com.zionstudio.seabedmodlling_421.MainActivity.WIDTH;
 
 public class MySurfaceView extends GLSurfaceView {
     private final String TAG = getClass().getSimpleName();
     static float direction = 0;//视线方向
-
+    private MapView mMapView;
     static float cx = 100;
     static float cy = 70;
     static float cz = -220;
-
+    static float xSpan = 2; //横向移动跨度
     static float fixedCx = 100;
     static float fixedCy = 100;
     static float fixedCz = -220;
@@ -47,6 +49,8 @@ public class MySurfaceView extends GLSurfaceView {
         mRender = new MyTestRenderer(this);
         setRenderer(mRender);                //设置渲染器
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);//设置渲染模式为主动渲染
+
+//        mMapView.setCenter(fixedCx, fixedCz);
     }
 
     public void clear() {
@@ -75,9 +79,11 @@ public class MySurfaceView extends GLSurfaceView {
                                 cx = cx + (float) Math.sin(direction) * 1.0f;
                                 cz = cz + (float) Math.cos(direction) * 1.0f;
                             } else if (x > 0 && x < WIDTH / 2 && y > HEIGHT / 2 && y < HEIGHT) {
-                                direction = direction + DEGREE_SPAN;
+//                                direction = direction + DEGREE_SPAN;
+                                cx = cx + xSpan;
                             } else if (x > WIDTH / 2 && x < WIDTH && y > HEIGHT / 2 && y < HEIGHT) {
-                                direction = direction - DEGREE_SPAN;
+//                                direction = direction - DEGREE_SPAN;
+                                cx = cx - xSpan;
                             }
                             try {
                                 Thread.sleep(100);
@@ -96,10 +102,15 @@ public class MySurfaceView extends GLSurfaceView {
 //        //设置新的观察目标点XZ坐标
 //        tx = (float) (cx - Math.sin(direction) * Offset);//观察目标点x坐标
 //        tz = (float) (cz - Math.cos(direction) * Offset);//观察目标点z坐标
-
+        Log.i(TAG, "摄像机位置x：" + cx + "; y：" + cz);
+        mMapView.setCenter(cx, cz);
         //设置新的摄像机位置
         MatrixState.setCamera(cx, cy, cz, tx, 1, tz, 0, 1, 0);
         return true;
+    }
+
+    public void setMapView(MapView mv) {
+        mMapView = mv;
     }
 
     private void setCameraToInit() {

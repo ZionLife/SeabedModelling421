@@ -33,15 +33,20 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
     Cube mCube;
     Land mLand;
 
-    GLSurfaceView mView;
-
+    GLSurfaceView mGLView;
+    MapView mMapView;
     //山的纹理id
     int grassId;
     int rockId;
     private boolean mDrawCube = false;
 
     public MyTestRenderer(GLSurfaceView view) {
-        mView = view;
+        mGLView = view;
+    }
+
+    public MyTestRenderer(GLSurfaceView view, MapView mv) {
+        mGLView = view;
+        mMapView = mv;
     }
 
     @Override
@@ -49,11 +54,11 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
         Log.i(TAG, "onSurfaceCreated");
         //开启深度测试
         GLES30.glEnable(GLES30.GL_DEPTH_TEST);
-        mCube = new Cube(mView);
+        mCube = new Cube(mGLView);
 
         MatrixState.setInitStack();
-        highArrs = getLand(mView.getResources(), R.mipmap.land8);
-        mLand = new Land(mView, highArrs, highArrs.length - 1, highArrs[0].length - 1);
+        highArrs = getLand(mGLView.getResources(), R.mipmap.land8);
+        mLand = new Land(mGLView, highArrs, highArrs.length - 1, highArrs[0].length - 1);
 
         //初始化纹理
         grassId = initTexture(Constant.sGrassPath);
@@ -93,7 +98,7 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
     public void clear() {
         Log.i(TAG, "执行重绘");
         mDrawCube = true;
-//        mCube = new Cube(mView);
+//        mCube = new Cube(mGLView);
         mCube.setBuffer();
 //        mCube.setBuffer();
     }
@@ -119,7 +124,7 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
         GLES30.glTexParameterf(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_REPEAT);
 
         //通过输入流加载图片
-//        InputStream is = mView.getResources().openRawResource(drawableId);
+//        InputStream is = mGLView.getResources().openRawResource(drawableId);
         Bitmap bitmapTmp;
         bitmapTmp = BitmapFactory.decodeFile(path);
         //实际加载纹理

@@ -2,6 +2,7 @@ package com.zionstudio.seabedmodlling_421;
 
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -89,7 +90,10 @@ public class Land {
                 vertices[count++] = zsz + UNIT_SIZE;
             }
         }
-
+        Constant.xSum = vertices[count - 1];
+        Constant.ySum = vertices[count - 3];
+        Log.i("Land", "第一个顶点x,y, z: " + vertices[0] + ", " + vertices[1] + "; " + vertices[2]);
+        Log.i("Land", "最后一个顶点x,y, z: " + vertices[count - 1] + ", " + vertices[count - 2] + "; " + vertices[count - 3]);
         //创建顶点坐标数据缓冲
         ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
         vbb.order(ByteOrder.nativeOrder());//设置字节顺序
