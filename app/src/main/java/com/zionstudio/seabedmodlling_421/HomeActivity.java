@@ -1,7 +1,6 @@
 package com.zionstudio.seabedmodlling_421;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -173,7 +172,7 @@ public class HomeActivity extends BaseActivity {
                 break;
             case R.id.btn_confirm:
                 if (checkValid()) {
-                    startActivity(new Intent(this, MainActivity.class));
+                    startActivity(new Intent(this, RenderActivity.class));
                 }
                 break;
         }
@@ -186,9 +185,12 @@ public class HomeActivity extends BaseActivity {
             Toast.makeText(this, "请选择高度图、草地纹理图与岩石纹理图", Toast.LENGTH_LONG).show();
             return false;
         }
-
-        if (TextUtils.isEmpty(mEtMax.getText().toString()) || TextUtils.isEmpty(mEtMin.getText().toString())) {
+        if (mTvHeightmap.getText().toString().equals("请选择图片") || mTvGrass.getText().toString().equals("请选择图片") || mTvRock.getText().toString().equals("请选择图片")) {
             Toast.makeText(this, "请选择高度图、草地纹理图与岩石纹理图", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (TextUtils.isEmpty(mEtMax.getText().toString()) || TextUtils.isEmpty(mEtMin.getText().toString())) {
+            Toast.makeText(this, "请输入地形的最大/最小高度", Toast.LENGTH_LONG).show();
             return false;
         }
         try {

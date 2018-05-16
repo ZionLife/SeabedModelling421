@@ -55,6 +55,7 @@ public class Land {
 
     //初始化地形顶点数据
     public void initVertexData(float[][] yArray, int rows, int cols) {
+        yArray = Constant.highArrs;
         //顶点坐标数据的初始化
         vCount = cols * rows * 2 * 3;//每个格子两个三角形，每个三角形3个顶点
         float vertices[] = new float[vCount * 3];//每个顶点xyz三个坐标
@@ -122,17 +123,17 @@ public class Land {
         //基于顶点着色器与片元着色器创建程序
         mProgram = ShaderUtil.createProgram(mVertexShader, mFragmentShader);
         //获取程序中顶点位置属性引用id
-        maPositionHandle = GLES30.glGetAttribLocation(mProgram, "aPosition");
+        maPositionHandle = GLES30.glGetAttribLocation(mProgram, "aPos");
         //获取程序中顶点纹理坐标属性引用id
-        maTexCoorHandle = GLES30.glGetAttribLocation(mProgram, "aTexCoor");
+        maTexCoorHandle = GLES30.glGetAttribLocation(mProgram, "aTCoord");
         //获取程序中总变换矩阵引用id
-        muMVPMatrixHandle = GLES30.glGetUniformLocation(mProgram, "uMVPMatrix");
+        muMVPMatrixHandle = GLES30.glGetUniformLocation(mProgram, "MVPMat");
 
         //纹理
         //草地
-        sTextureGrassHandle = GLES30.glGetUniformLocation(mProgram, "sTextureGrass");
+        sTextureGrassHandle = GLES30.glGetUniformLocation(mProgram, "sTGrass");
         //石头
-        sTextureRockHandle = GLES30.glGetUniformLocation(mProgram, "sTextureRock");
+        sTextureRockHandle = GLES30.glGetUniformLocation(mProgram, "sTRock");
         //x位置
         landStartYYHandle = GLES30.glGetUniformLocation(mProgram, "landStartY");
         //x最大
@@ -144,7 +145,7 @@ public class Land {
         //指定使用某套着色器程序
         GLES30.glUseProgram(mProgram);
         //将最终变换矩阵传入渲染管线
-        GLES30.glUniformMatrix4fv(muMVPMatrixHandle, 1, false, MatrixState.getFinalMatrix(), 0);
+        GLES30.glUniformMatrix4fv(muMVPMatrixHandle, 1, false, MatrixUtils.getFinalMatrix(), 0);
         //将顶点位置数据送入渲染管线
         GLES30.glVertexAttribPointer
                 (

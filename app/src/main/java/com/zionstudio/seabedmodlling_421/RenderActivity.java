@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends Activity {
+public class RenderActivity extends Activity {
     //屏幕对应的宽度和高度
     static float WIDTH;
     static float HEIGHT;
@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         initData();
         initView();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_render);
 
         ButterKnife.bind(this);
         sfv.setMapView(mv);
@@ -171,9 +171,6 @@ public class MainActivity extends Activity {
                     + "，Y∈[" + Constant.minY + ", " + Constant.maxY + "]";
             Utils.makeToastLong(msg);
         }
-//        if (!(checkY(obsY) && checkY(startY) && checkY(endY))) {
-//
-//        }
     }
 
     private boolean checkX(float num) {

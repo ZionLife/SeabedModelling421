@@ -7,7 +7,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 //存储系统矩阵状态的类
-public class MatrixState {
+public class MatrixUtils {
     private static float[] mProjMatrix = new float[16];//4x4矩阵 投影用
     private static float[] mVMatrix = new float[16];//摄像机位置朝向9参数矩阵
     private static float[] currMatrix;//当前变换矩阵

@@ -1,16 +1,16 @@
 #version 300 es
-precision mediump float;							//给出默认的浮点精度
-in vec2 vTextureCoord; 						//接收从顶点着色器过来的纹理坐标
-in float currY;								//接收从顶点着色器过来的Y坐标
-uniform sampler2D sTextureGrass;					//纹理内容数据（草皮）
-uniform sampler2D sTextureRock;					//纹理内容数据（岩石）
+precision mediump float;							//浮点精度为mediump
+in vec2 vTCoord; 						//接收从纹理坐标
+in float currY;								//接收Y坐标
+uniform sampler2D sTGrass;					//纹理内容数据（草皮）
+uniform sampler2D sTRock;					//纹理内容数据（岩石）
 uniform float landStartY;							//过程纹理起始Y坐标
 uniform float landYSpan;							//过程纹理跨度
 
-out vec4 fragColor;//输出到的片元颜色
+out vec4 fragColor;
 void main(){
-   vec4 gColor=texture(sTextureGrass, vTextureCoord); 	//从草皮纹理中采样出颜色
-   vec4 rColor=texture(sTextureRock, vTextureCoord); 	//从岩石纹理中采样出颜色
+   vec4 gColor=texture(sTGrass, vTCoord); 	//从草皮纹理中采样出颜色
+   vec4 rColor=texture(sTRock, vTCoord); 	//从岩石纹理中采样出颜色
    vec4 finalColor;									//最终颜色
    if(currY<landStartY){
 	  finalColor=gColor;	//当片元Y坐标小于过程纹理起始Y坐标时采用草皮纹理

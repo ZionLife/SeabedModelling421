@@ -72,11 +72,6 @@ public class MapView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        Log.i(TAG, "MapView onDraw + " + "bitmap width:" + mBitmap.getWidth() + "; bitmap height:" + mBitmap.getHeight()
-//                + "centerX: " + centerX + "; centerY: " + centerY);
-
-//        Matrix matrix = new Matrix();
-//        matrix.postScale()
 
         canvas.drawBitmap(mBitmap, 0, 0, mPaint);
         if (mDrawRedPoint) {

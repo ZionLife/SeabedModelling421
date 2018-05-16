@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.zionstudio.seabedmodlling_421.MainActivity">
+    tools:context="com.zionstudio.seabedmodlling_421.RenderActivity">
 
 
     <com.zionstudio.seabedmodlling_421.MySurfaceView

@@ -6,10 +6,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import java.util.Map;
-
-import static com.zionstudio.seabedmodlling_421.MainActivity.HEIGHT;
-import static com.zionstudio.seabedmodlling_421.MainActivity.WIDTH;
+import static com.zionstudio.seabedmodlling_421.RenderActivity.HEIGHT;
+import static com.zionstudio.seabedmodlling_421.RenderActivity.WIDTH;
 
 public class MySurfaceView extends GLSurfaceView {
     private final String TAG = getClass().getSimpleName();
@@ -105,7 +103,7 @@ public class MySurfaceView extends GLSurfaceView {
         Log.i(TAG, "摄像机位置x：" + cx + "; y：" + cz);
         mMapView.setCenter(cx, cz);
         //设置新的摄像机位置
-        MatrixState.setCamera(cx, cy, cz, tx, 1, tz, 0, 1, 0);
+        MatrixUtils.setCamera(cx, cy, cz, tx, 1, tz, 0, 1, 0);
         return true;
     }
 
@@ -114,6 +112,6 @@ public class MySurfaceView extends GLSurfaceView {
     }
 
     private void setCameraToInit() {
-        MatrixState.setCamera(fixedCx, fixedCy, fixedCz, tx, 1, tz, 0, 1, 0);
+        MatrixUtils.setCamera(fixedCx, fixedCy, fixedCz, tx, 1, tz, 0, 1, 0);
     }
 }

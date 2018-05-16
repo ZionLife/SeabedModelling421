@@ -138,7 +138,7 @@ public class Cube {
         //获取变换矩阵vMatrix成员句柄
         mMatrixHandler = GLES30.glGetUniformLocation(mProgram, "vMatrix");
         //指定vMatrix的值
-        GLES30.glUniformMatrix4fv(mMatrixHandler, 1, false, MatrixState.getFinalMatrix(), 0);
+        GLES30.glUniformMatrix4fv(mMatrixHandler, 1, false, MatrixUtils.getFinalMatrix(), 0);
         //获取顶点着色器的vPosition成员句柄
         mPositionHandle = GLES30.glGetAttribLocation(mProgram, "vPosition");
         //启用三角形顶点的句柄

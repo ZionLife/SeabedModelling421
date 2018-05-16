@@ -56,8 +56,12 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
         GLES30.glEnable(GLES30.GL_DEPTH_TEST);
         mCube = new Cube(mGLView);
 
-        MatrixState.setInitStack();
+        MatrixUtils.setInitStack();
         highArrs = getLand(mGLView.getResources(), R.mipmap.land8);
+//        if (!getLand(mGLView.getResources(), R.mipmap.land8)) {
+////            Toast.makeText(mGLView.getContext(), "图片过大，内存溢出", Toast.LENGTH_LONG).show();
+////            ((Activity) mGLView.getContext()).finish();
+//        }
         mLand = new Land(mGLView, highArrs, highArrs.length - 1, highArrs[0].length - 1);
 
         //初始化纹理
@@ -68,27 +72,26 @@ public class MyTestRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         Log.i(TAG, "onSurfaceChanged");
-        //绘制地形的相关代码
-        //设置视窗大小及位置
+        //设置Viewport显示窗口的大小
         GLES30.glViewport(0, 0, width, height);
-        //计算GLSurfaceView的宽高比
+        //计算宽高比
         float ratio = (float) width / height;
-        //调用此方法计算产生透视投影矩阵
-        MatrixState.setProjectFrustum(-ratio, ratio, -1, 1, 1, 1000);
-        //调用此方法产生摄像机9参数位置矩阵
-        MatrixState.setCamera(fixedCx, fixedCy, fixedCz, tx, 1, tz, 0, 1, 0);
+        //根据屏幕宽高比计算透视投影矩阵
+        MatrixUtils.setProjectFrustum(-ratio, ratio, -1, 1, 1, 1000);
+        //生成摄像机位置矩阵
+        MatrixUtils.setCamera(fixedCx, fixedCy, fixedCz, tx, 1, tz, 0, 1, 0);
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
 //        Log.i("Zion", "onDrawFrame");
         GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT | GLES30.GL_COLOR_BUFFER_BIT);
-        MatrixState.pushMatrix();
+        MatrixUtils.pushMatrix();
         mLand.draw(grassId, rockId, gl);
         if (mDrawCube == true) {
             mCube.drawCube(mMVPMatrix);
         }
-        MatrixState.popMatrix();
+        MatrixUtils.popMatrix();
 
     }
 

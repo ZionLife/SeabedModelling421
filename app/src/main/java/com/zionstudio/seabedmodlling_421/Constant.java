@@ -21,6 +21,7 @@ public class Constant {
 
     public static float xSum;
     public static float ySum;
+    private static final int maxPixels = 300 * 300;
 
     public static float[][] getLand(Resources res, int index) {
 //        Bitmap bt = BitmapFactory.decodeResource(res, index);
@@ -46,6 +47,34 @@ public class Constant {
         Log.i(TAG, "land x宽度: " + result[0].length + "；y宽度:" + result.length);
         return result;
     }
+
+//    public static boolean getLand(Resources res, int index) {
+////        Bitmap bt = BitmapFactory.decodeResource(res, index);
+//        Bitmap bt = BitmapFactory.decodeFile(sHeightmapPath);
+//        int colsPlusOne = bt.getWidth();
+//        int rowsPlusOne = bt.getHeight();
+//        Log.i(TAG, "像素总数" + colsPlusOne * rowsPlusOne);
+//        if (colsPlusOne * rowsPlusOne > maxPixels) {
+//            return false;
+//        }
+//        maxX = colsPlusOne - 1;
+//        maxY = rowsPlusOne - 1;
+//
+//        float[][] result = new float[rowsPlusOne][colsPlusOne];
+//        for (int i = 0; i < rowsPlusOne; i++) {
+//            for (int j = 0; j < colsPlusOne; j++) {
+//                int color = bt.getPixel(j, i);
+//                int r = Color.red(color);
+//                int g = Color.green(color);
+//                int b = Color.blue(color);
+//                int h = (r + g + b) / 3;
+////                result[i][j] = h * HIGHEST / 255 + HIGH_BASE;
+//                result[i][j] = r * HIGHEST / 255 + HIGH_BASE;
+//            }
+//        }
+//        Log.i(TAG, "land x宽度: " + result[0].length + "；y宽度:" + result.length);
+//        return true;
+//    }
 
     public static float[][] getLand(String fileName, int index) {
 //        Bitmap bt = BitmapFactory.decodeResource(res, index);
