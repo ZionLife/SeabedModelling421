@@ -70,18 +70,16 @@ public class MySurfaceView extends GLSurfaceView {
                     @Override
                     public void run() {
                         while (flag) {
-                            if (x > 0 && x < WIDTH / 2 && y > 0 && y < HEIGHT / 2) {//向前
+                            if (x > 0 && x < WIDTH / 2 && y > 0 && y < HEIGHT / 2) {//将视角坐标向前
                                 cx = cx - (float) Math.sin(direction) * 1.0f;
                                 cz = cz - (float) Math.cos(direction) * 1.0f;
                             } else if (x > WIDTH / 2 && x < WIDTH && y > 0 && y < HEIGHT / 2) {//向后
                                 cx = cx + (float) Math.sin(direction) * 1.0f;
                                 cz = cz + (float) Math.cos(direction) * 1.0f;
                             } else if (x > 0 && x < WIDTH / 2 && y > HEIGHT / 2 && y < HEIGHT) {
-//                                direction = direction + DEGREE_SPAN;
-                                cx = cx + xSpan;
+                                cx = cx + xSpan; //左平移
                             } else if (x > WIDTH / 2 && x < WIDTH && y > HEIGHT / 2 && y < HEIGHT) {
-//                                direction = direction - DEGREE_SPAN;
-                                cx = cx - xSpan;
+                                cx = cx - xSpan; //右平移
                             }
                             try {
                                 Thread.sleep(100);
@@ -96,13 +94,8 @@ public class MySurfaceView extends GLSurfaceView {
                 flag = false;
                 break;
         }
-
-//        //设置新的观察目标点XZ坐标
-//        tx = (float) (cx - Math.sin(direction) * Offset);//观察目标点x坐标
-//        tz = (float) (cz - Math.cos(direction) * Offset);//观察目标点z坐标
         Log.i(TAG, "摄像机位置x：" + cx + "; y：" + cz);
-        mMapView.setCenter(cx, cz);
-        //设置新的摄像机位置
+        mMapView.setCenter(cx, cz); //更新左上角小地图
         MatrixUtils.setCamera(cx, cy, cz, tx, 1, tz, 0, 1, 0);
         return true;
     }
